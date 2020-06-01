@@ -1,9 +1,33 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+#homepage {
+  font-family: 'Roboto', sans-serif;
 }
 
-#fact-container {
-  margin-top: 20px;
+.index-image-1 {
+  content: url(/images/nasa.jpg);
+  width: 90%;
+}
+
+.index-image-2 {
+  width: 50%;
+  content: url(/images/hi.jpg);
+  padding-top: 3em;
+  padding-bottom: 3em;
+}
+
+.index-image-2:hover {
+  animation: shake 1s;
+  animation-iteration-count: 1;
+}
+@keyframes shake {
+  0% { transform: translate(0px, -1px) rotate(0deg); }
+  10% { transform: translate(0px, -2px) rotate(0deg); }
+  20% { transform: translate(0px, -3px) rotate(0deg); }
+  30% { transform: translate(0px, -4px) rotate(0deg); }
+  40% { transform: translate(0px, -5px) rotate(1deg); }
+  50% { transform: translate(0px, -5px) rotate(-1deg); }
+  60% { transform: translate(0px, -5px) rotate(1deg); }
+  70% { transform: translate(0px, -5px) rotate(-1deg); }
+  80% { transform: translate(0px, -4px) rotate(0deg); }
+  90% { transform: translate(0px, -2px) rotate(0deg); }
+  100% { transform: translate(0px, 0px) rotate(0deg); }
 }

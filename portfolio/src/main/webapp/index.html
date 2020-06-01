@@ -1,24 +1,400 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Dan Abreo</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-  </head>
-  <body>
-    <div id="content">
-      <h1>Dan's Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>
-        I am an incoming Junior at Texas A&M University, pursuing a Bachelor's Degree in Computer Science.
-        I was born and raised in Houston, Texas near NASA's Johnson Space Center, 
-        and I enjoy putting my software engineering skills to use in solving real-world problems.
-      </p>
-      <img style="width:100%" src="/images/nasa.jpg" alt="Photo of Dan in the Space Shuttle"></img> 
-      <p>Click here to get a random fact about me:</p>
-      <button onclick="addRandomFact()">Get a fact!</button>
-      <div id="fact-container"></div>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+  <!-- Google Fonts CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS / JS -->
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+
+  <title>
+    Dan Abreo
+  </title>
+
+  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <a class="navbar-brand" href="./index.html">
+      Dan
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a class="nav-link" href="#projects">
+            Projects
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#resume">
+            Resume
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#service">
+            Service
+          </a>
+        </li>
+      </ul>
     </div>
-  </body>
+  </nav>
+
+</head>
+
+<body id="homepage">
+  <div class="container">
+    <div class="row py-5 mb-3" style="height:100%">
+      <div class="col-sm-12 my-auto mx-auto" style="padding-right:0px">
+        <div class="container">
+          <div class="row h-100 justify-content-center pt-5">
+            <div class="col-md-6 my-auto">
+              <h2>
+                Howdy! I'm Dan,
+              </h2>
+              <p>
+                I am a Junior pursuing a Bachelor's Degree in Computer Science student at 
+                <a href="https://www.tamu.edu" target="_blank">Texas A&amp;M University</a>.
+                I was born and raised in Houston, Texas near NASA's Johnson Space Center, and I enjoy putting my software engineering
+                skills to use in 
+                <a href="https://www.reddit.com/r/aggies/comments/csnjet/struggling_to_find_which_bus_to_take_aggiemapscom/?utm_source=share&amp;utm_medium=web2x" target="_blank">solving real-world problems</a>.
+                I am currently a STEP intern at 
+                <span>
+                  <span style="color: #4285F4">G</span><span style="color: #DB4437">o</span><span style="color: #F4B400">o</span><span style="color: #4285F4">g</span><span style="color: #0F9D58">l</span><span style="color: #DB4437">e</span>
+                </span>
+                on the Geo Team.
+              </p>
+            </div>
+            <div class="col-md-6" align="center">
+              <div class="row h-100">
+                <div class="col-sm-12 my-auto">
+                  <img id="switch" class="index-image-1" onclick="changeImage()" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="projects" class="row px-4 pt-5">
+      <h2>
+        Projects
+      </h2>
+    </div>
+    
+    <div class="container pt-5">
+      <div class="card justify-content-center">
+        <div class="card-body">
+          <h5 class="card-title">
+            Check out my GitHub
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            Where I post my programming projects
+          </h6>
+          <a href="https://github.com/danielabreo" target="_blank" class="card-link">
+            github.com/danielabreo
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="container pt-5 pb-5">
+      <div class="card justify-content-center">
+        <div class="card-body">
+          <p class="card-text">
+            <small class="text-muted">
+              Fall 2019
+            </small>
+          </p>
+          <h5 class="card-title">
+            AggieMaps.com
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            Easily navigate the Texas A&M Bus System
+          </h6>
+          <p class="card-text">
+            As a freshman, I relied on the bus to get anywhere on/off campus since I didn't have a car.
+            The transportation department doesn't currently have a user-friendly system to find the best bus route between
+            any two locations in College Station, so I decided to create one.
+          </p>
+          <a href="http://aggiemapsm.appspot.com" target="_blank" class="card-link">
+            Try it out!
+          </a>
+          <a href="https://github.com/danielabreo/aggiemaps" target="_blank" class="card-link">
+            View the code!
+          </a>
+          <br>
+          <br>
+          <div class="row justify-content-center">
+            <img src="images/map.png" alt="hi!" style="width: 75%; height: 75%;border:1px solid black">
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>
+
+    <div id="resume" class="row px-4 pt-5">
+      <h2>
+        Resume
+      </h2>
+    </div>
+
+    <div class="container">
+      <div class="row justify-content-center pb-5">
+        <div class="col-md-5 pt-5 justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                Technical Skills
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                School/Hackathons/Internships
+              </h6>
+              <p class="card-text">
+              <ul>
+                <li>
+                  c++
+                </li>
+                <li>
+                  python
+                </li>
+                <li>
+                  java
+                </li>
+              </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 pt-5 justify-content-center">
+          <div class="card justify-content-center">
+            <div class="card-body">
+              <h5 class="card-title">
+                Soft Skills
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Work/Group Projects/Clubs
+              </h6>
+              <p class="card-text">
+              <ul>
+                <li>
+                  communication
+                </li>
+                <li>
+                  leadership
+                </li>
+                <li>
+                  mentoring
+                </li>
+              </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-5 pb-5 justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                Coursework
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Texas A&M University
+              </h6>
+              <p class="card-text">
+              <ul>
+                <li>
+                  Data Structures & Algorithms
+                </li>
+                <li>
+                  Computer Organization
+                </li>
+                <li>
+                  Programming Languages
+                </li>
+              </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 pb-5 justify-content-center">
+          <div class="card justify-content-center">
+            <div class="card-body">
+              <h5 class="card-title">
+                Work Experience
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Research/Internship
+              </h6>
+              <p class="card-text">
+              <ul>
+                <li>
+                  <a href="https://www.rice.edu">
+                    Rice University
+                  </a>
+                  - Summer '18
+                </li>
+                <li>
+                  <a href="https://www.nasa.gov">
+                    NASA
+                  </a>
+                  - Summer '19
+                </li>
+                <li>
+                  <span>
+                    <span style="color: #4285F4">G</span><span style="color: #DB4437">o</span><span style="color: #F4B400">o</span><span
+                      style="color: #4285F4">g</span><span style="color: #0F9D58">l</span><span style="color: #DB4437">e</span>
+                  </span>
+                  - Summer '20
+                </li>
+              </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row ml-0 w-100 pb-5 justify-content-center">
+      <iframe src="https://drive.google.com/file/d/1j9PW-ay2bOhDKRuJi9gZTjWEiNlU_Bov/preview" width="640"
+        height="820"></iframe>
+    </div>
+
+    <div id="service" class="row px-4 pt-5">
+      <h2>
+        Service
+      </h2>
+    </div>
+
+    <div class="container">
+      <div class="row justify-content-center pb-5">
+        <div class="col-md-5 pt-5 justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text">
+                <small class="text-muted">
+                  Fall 2018 - Present
+                </small>
+              </p>
+              <h5 class="card-title">
+                Violinist
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                St. Mary's Catholic Church
+              </h6>
+              <p class="card-text">
+                Preformed on Sundays with the St. Mary's student orchestra and choir.
+              </p>
+              <a href="https://aggiecatholic.org" target="_blank" class="card-link">
+                St. Mary's
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 pt-5 justify-content-center">
+          <div class="card justify-content-center">
+            <div class="card-body">
+              <p class="card-text">
+                <small class="text-muted">
+                  Fall 2018 - Present
+                </small>
+              </p>
+              <h5 class="card-title">
+                Engineering Honors Ambassador
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                TAMU Engineering
+              </h6>
+              <p class="card-text">
+                Represented the honors program to prospective students and donors.
+              </p>
+              <a href="https://engineering.tamu.edu/academics/eh/student-ambassador/index.html" target="_blank"
+                class="card-link">
+                EH Ambassadors
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-5 pb-5 justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text">
+                <small class="text-muted">
+                  Fall 2019
+                </small>
+              </p>
+              <h5 class="card-title">
+                Student Judge
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Brazos Valley Robotics Competition
+              </h6>
+              <p class="card-text">
+                Assisted in the overall execution and judging of the 2019 Brazos Valley Robotics Competition.
+              </p>
+              <a href="https://www.brazosvalleyfair.com/events/2020/agrobotics" target="_blank" class="card-link">
+                Brazos Valley Rodeo
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 pb-5 justify-content-center">
+          <div class="card justify-content-center">
+            <div class="card-body">
+              <p class="card-text">
+                <small class="text-muted">
+                  Fall 2019 - Spring 2020
+                </small>
+              </p>
+              <h5 class="card-title">
+                Engineering Honors Mentor
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                TAMU Engineering
+              </h6>
+              <p class="card-text">
+                Academic mentor to 14 freshman engineers. Planned and executed events with expected attendance of 200+
+                students.
+              </p>
+              <a href="https://engineering.tamu.edu/academics/eh/ecos/index.html" target="_blank" class="card-link">
+                ECOS Program
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+</body>
+
 </html>
