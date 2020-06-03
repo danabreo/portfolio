@@ -19,14 +19,37 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+  private ArrayList<String> data = new ArrayList<String>();
+
+  private static String convertToJson(ArrayList<String> messages) {
+    String json = "{ \"messages\" : [\"";
+    json += String.join("\",\"",messages);
+    json += "\"] }";
+    return json;
+  }
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("Howdy! I'm Dan,");
+    // Convert messages to JSON
+    String json = convertToJson(data);
+
+    // Send JSON as the response
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String comment = request.getParameter("comment");
+    data.add(comment);
+
+    // Redirect back to the forum section.
+    response.sendRedirect("/#forum");
   }
 }

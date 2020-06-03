@@ -2,9 +2,17 @@ function changeImage() {
   document.getElementById("switch").className = "index-image-2"; 
 }
 
-async function populateGreeting() {
-  const response = await fetch('/data');
-  const greeting = await response.text();
-  document.getElementById("greeting").innerText = greeting;
+function createListElement(text) {
+  const listElement = document.createElement('li');
+  listElement.innerText = text;
+  return listElement;
 }
-populateGreeting();
+
+function populateComments() {
+  fetch('/data').then(response => response.json()).then((data) => {
+    const commentHolder = document.getElementById('comments');
+    data.messages.forEach(message => {
+      commentHolder.appendChild(createListElement(message));
+    });
+  });
+}
