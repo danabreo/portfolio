@@ -3,12 +3,27 @@ function changeImage() {
 }
 
 /**
- * Requests a text greeting from the /data servlet and injects
- * the greeting into the 'greeting' div on the home page. 
- */
-async function populateGreeting() {
-  const response = await fetch('/data');
-  const greeting = await response.text();
-  document.getElementById("greeting").innerText = greeting;
+  * Creates and returns an HTML list element containing
+  * a string provided by the the text parameter.
+  * @param {String} text Content of the list element.
+  * @return {<li>} HTML list element with the contents of the text parameter.
+  */
+function createListElement(text) {
+  const listElement = document.createElement('li');
+  listElement.innerText = text;
+  return listElement;
 }
-populateGreeting();
+
+/**
+  * Populates the list element in the 'Meet the STEP Pod'
+  * section with JSON fetched from the /data servlet.
+  */
+function populateMembers() {
+  fetch('/data').then(response => response.json()).then((data) => {
+    const podMatesElement = document.getElementById('pod-mates');
+    data.messages.forEach(message => {
+      podMatesElement.appendChild(createListElement(message));
+    });
+  });
+}
+populateMembers();
