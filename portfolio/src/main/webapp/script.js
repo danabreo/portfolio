@@ -1,3 +1,6 @@
+/**
+  * Switches image on splash page when it is clicked.
+  */
 function changeImage() {
   document.getElementById("switch").className = "index-image-2"; 
 }
@@ -18,11 +21,11 @@ function createListElement(text) {
   * Populates the list element in the forum section
   * with JSON fetched from the /data servlet.
   */
-function populateComments() {
+function populatePosts() {
   fetch('/data').then(response => response.json()).then((data) => {
-    const commentHolder = document.getElementById('comments');
-    data.messages.forEach(message => {
-      commentHolder.appendChild(createListElement(message));
+    const postHolder = document.getElementById('posts');
+    data.forEach(post => {
+      postHolder.appendChild(createListElement(post.comment + ' - ' + post.username));
     });
   });
 }

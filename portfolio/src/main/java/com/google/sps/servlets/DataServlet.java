@@ -14,56 +14,68 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.Gson;
+import com.google.sps.data.Post;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Stores and retrieves posts from Datastore */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private ArrayList<String> data = new ArrayList<String>();
-
   /**
-   * Creates a JSON object where the key, 'messages', is assigned a value of a
-   * variable sized list, containing all strings from the messages parameter.
-   * @param {ArrayList<String>} messages List of messages to be converted.
-   * @return {JSON} Valid JSON object with one key, 'messages', whose value is
-   * the list of strings provided in the messages parameter. 
-   */
-  private static String convertToJson(ArrayList<String> messages) {
-    String json = "{ \"messages\" : [\"";
-    json += String.join("\",\"",messages);
-    json += "\"] }";
-    return json;
-  }
-
-  /**
-   * @return {JSON} Valid JSON object with one key, 'messages', whose value is
-   * the list of strings stored in the data ArrayList.
+   * @return {JSON} JSON array with all 'post' entities from Datastore
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Convert messages to JSON
-    String json = convertToJson(data);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    Query query = new Query("post");
+    PreparedQuery results = datastore.prepare(query);
+
+    List<Post> posts = new ArrayList<>();
+    for (Entity entity : results.asIterable()) {
+      String username = (String) entity.getProperty("username");
+      String comment = (String) entity.getProperty("comment");
+      
+      Post post = new Post(username, comment);
+      posts.add(post);
+    }
+
+    Gson gson = new Gson();
 
     // Send JSON as the response
     response.setContentType("application/json;");
-    response.getWriter().println(json);
+    response.getWriter().println(gson.toJson(posts));
   }
 
   /**
-   * Extracts a comment from the form and adds it to the data ArrayList.
+   * Extracts the username and comment from the form, combines them as
+   * an entity of kind 'post', and stores the entity in Datastore.
    * Reloads index.html and scrolls to the forum section.
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String username = request.getParameter("username");
     String comment = request.getParameter("comment");
-    data.add(comment);
 
+    Entity postEntity = new Entity("post");
+    postEntity.setProperty("username", username);
+    postEntity.setProperty("comment", comment);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(postEntity);
+    
     // Redirect back to the forum section.
     response.sendRedirect("/#forum");
   }
