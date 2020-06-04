@@ -46,22 +46,25 @@
             Service
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#forum">
+            Forum
+          </a>
+        </li>
       </ul>
     </div>
   </nav>
 
 </head>
 
-<body id="homepage">
+<body id="homepage" onload="populateComments()">
   <div class="container">
     <div class="row py-5 mb-3" style="height:100%">
       <div class="col-sm-12 my-auto mx-auto" style="padding-right:0px">
         <div class="container">
           <div class="row h-100 justify-content-center pt-5">
             <div class="col-md-6 my-auto">
-              <h2>
-                Howdy! I'm Dan,
-              </h2>
+              <h2>Howdy! I'm Dan,</h2>
               <p>
                 I am a Junior pursuing a Bachelor's Degree in Computer Science student at 
                 <a href="https://www.tamu.edu" target="_blank">Texas A&amp;M University</a>.
@@ -384,14 +387,42 @@
       </div>
     </div>
 
-    <div id="step" class="row px-4 pt-5">
+    <div id="forum" class="row px-4 pt-5 pb-2">
       <h2>
-        Meet the STEP Pod!
+        Forum
       </h2>
     </div>
 
-    <div class="container">
-      <ul id="pod-mates"></ul>
+    <div class="container mb-5">
+      <div class="row">
+        <div class="col-md-6">
+          <form action="/data" method="POST">
+          <h6>
+              Please leave a comment using the form below!
+          </h6>
+          <div class="form-group">
+            <label for="username">
+              Username
+            </label>
+            <input type="text" class="form-control" id="username" placeholder="Enter your username">
+          </div>
+          <div class="form-group">
+            <label for="comment">
+              Comment
+            </label>
+            <input type="text" class="form-control" name="comment" placeholder="This website looks amazing...">
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Submit
+          </button>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <div class="container">
+            <ul id="comments"></ul>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   

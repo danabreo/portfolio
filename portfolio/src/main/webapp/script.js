@@ -15,15 +15,14 @@ function createListElement(text) {
 }
 
 /**
-  * Populates the list element in the 'Meet the STEP Pod'
-  * section with JSON fetched from the /data servlet.
+  * Populates the list element in the forum section
+  * with JSON fetched from the /data servlet.
   */
-function populateMembers() {
+function populateComments() {
   fetch('/data').then(response => response.json()).then((data) => {
-    const podMatesElement = document.getElementById('pod-mates');
+    const commentHolder = document.getElementById('comments');
     data.messages.forEach(message => {
-      podMatesElement.appendChild(createListElement(message));
+      commentHolder.appendChild(createListElement(message));
     });
   });
 }
-populateMembers();

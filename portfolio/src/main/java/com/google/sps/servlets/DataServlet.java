@@ -25,19 +25,7 @@ import java.util.ArrayList;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private ArrayList<String> data;
-
-/**
-  * Initializes the 'data' ArrayList with hard-coded
-  * greetings from members of the STEP Pod
-  */
-  @Override
-  public void init() {
-    data = new ArrayList<String>();
-    data.add("Malcolm from NC");
-    data.add("Sabrina from FL");
-    data.add("Dan from TX");
-  }
+  private ArrayList<String> data = new ArrayList<String>();
 
   /**
    * Creates a JSON object where the key, 'messages', is assigned a value of a
@@ -46,7 +34,7 @@ public class DataServlet extends HttpServlet {
    * @return {JSON} Valid JSON object with one key, 'messages', whose value is
    * the list of strings provided in the messages parameter. 
    */
-  private String convertToJson(ArrayList<String> messages) {
+  private static String convertToJson(ArrayList<String> messages) {
     String json = "{ \"messages\" : [\"";
     json += String.join("\",\"",messages);
     json += "\"] }";
@@ -65,5 +53,18 @@ public class DataServlet extends HttpServlet {
     // Send JSON as the response
     response.setContentType("application/json;");
     response.getWriter().println(json);
+  }
+
+  /**
+   * Extracts a comment from the form and adds it to the data ArrayList.
+   * Reloads index.html and scrolls to the forum section.
+   */
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String comment = request.getParameter("comment");
+    data.add(comment);
+
+    // Redirect back to the forum section.
+    response.sendRedirect("/#forum");
   }
 }
