@@ -27,6 +27,10 @@ public class DataServlet extends HttpServlet {
 
   private ArrayList<String> data;
 
+/**
+  * Initializes the 'data' ArrayList with hard-coded
+  * greetings from members of the STEP Pod
+  */
   @Override
   public void init() {
     data = new ArrayList<String>();
@@ -35,6 +39,13 @@ public class DataServlet extends HttpServlet {
     data.add("Dan from TX");
   }
 
+  /**
+   * Creates a JSON object where the key, 'messages', is assigned a value of a
+   * variable sized list, containing all strings from the messages parameter.
+   * @param {ArrayList<String>} messages List of messages to be converted.
+   * @return {JSON} Valid JSON object with one key, 'messages', whose value is
+   * the list of strings provided in the messages parameter. 
+   */
   private String convertToJson(ArrayList<String> messages) {
     String json = "{ \"messages\" : [\"";
     json += String.join("\",\"",messages);
@@ -42,6 +53,10 @@ public class DataServlet extends HttpServlet {
     return json;
   }
 
+  /**
+   * @return {JSON} Valid JSON object with one key, 'messages', whose value is
+   * the list of strings stored in the data ArrayList.
+   */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Convert messages to JSON
