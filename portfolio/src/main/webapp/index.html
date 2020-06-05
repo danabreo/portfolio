@@ -57,7 +57,7 @@
 
 </head>
 
-<body id="homepage" onload="populateComments()">
+<body id="homepage" onload="populatePosts()">
   <div class="container">
     <div class="row py-5 mb-3" style="height:100%">
       <div class="col-sm-12 my-auto mx-auto" style="padding-right:0px">
@@ -404,7 +404,7 @@
             <label for="username">
               Username
             </label>
-            <input type="text" class="form-control" id="username" placeholder="Enter your username">
+            <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username">
           </div>
           <div class="form-group">
             <label for="comment">
@@ -419,7 +419,7 @@
         </div>
         <div class="col-md-6">
           <div class="container">
-            <ul id="comments"></ul>
+            <ul id="posts"></ul>
           </div>
         </div>
       </div>
