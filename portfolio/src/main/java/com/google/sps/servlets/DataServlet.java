@@ -54,7 +54,7 @@ public class DataServlet extends HttpServlet {
       String username = (String) entity.getProperty("username");
       String comment = (String) entity.getProperty("comment");
       
-      Post post = new Post(username,comment);
+      Post post = new Post(username, comment);
       posts.add(post);
     }
 
