@@ -28,9 +28,9 @@ public class DeleteServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     Query query =
       new Query("post").setFilter(
-        new Query.FilterPredicate("comment", Query.FilterOperator.EQUAL, comment));
+          new Query.FilterPredicate("comment", Query.FilterOperator.EQUAL, comment));
     PreparedQuery results = datastore.prepare(query);
-    QueryResultIterator<Entity>	posts = results.asQueryResultIterator();
+    QueryResultIterator<Entity> posts = results.asQueryResultIterator();
 
     while (posts.hasNext()) {
       Entity post = posts.next();
