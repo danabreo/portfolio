@@ -22,10 +22,25 @@ function createListElement(text) {
   * with JSON fetched from the /data servlet.
   */
 function populatePosts() {
-  fetch('/data').then(response => response.json()).then((data) => {
+  const numPosts = document.getElementById('numPosts').value;
+  const url = "/data?numPosts=" + numPosts;
+  
+  fetch(url).then(response => response.json()).then((data) => {
     const postHolder = document.getElementById('posts');
+    postHolder.innerHTML = "";
     data.forEach(post => {
       postHolder.appendChild(createListElement(post.comment + ' - ' + post.username));
     });
   });
+}
+
+/**
+  * Calls the deletedata servlet, and passes in the text of the comment
+  * to be deleted. Calls populatePosts to refresh list of comments.
+  */
+function deletePost() {
+  const comment = document.getElementById('comment').value;
+  const url = '/deletedata?comment=' + comment;
+
+  fetch(url, {method: 'POST'}).then(result => populatePosts());
 }

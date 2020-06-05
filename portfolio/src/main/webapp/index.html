@@ -410,12 +410,32 @@
             <label for="comment">
               Comment
             </label>
-            <input type="text" class="form-control" name="comment" placeholder="This website looks amazing...">
+            <input type="text" class="form-control" name="comment" id="comment" placeholder="This website looks amazing...">
           </div>
-          <button type="submit" class="btn btn-primary">
-            Submit
-          </button>
+          <div class="form-row justify-content-between">
+            <div class="form-group col-sm-4">
+              <button type="submit" class="btn btn-primary">
+                Submit
+              </button>
+            </div>
+            <div class="input-group mb-3 col-sm-4">
+              <select class="custom-select" id="numPosts" onchange="populatePosts()">
+                <option selected value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+              </select>
+              <div class="input-group-append">
+                <label class="input-group-text"># posts</label>
+              </div>
+            </div>
+          </div>
           </form>
+          <button onclick="deletePost()" class="btn btn-secondary">
+            Delete
+          </button>
+          <p>
+            (Specify the comment to be deleted using the comment field)
+          </p>
         </div>
         <div class="col-md-6">
           <div class="container">

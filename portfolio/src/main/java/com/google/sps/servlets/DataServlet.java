@@ -35,16 +35,22 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
 
   /**
-   * @return {JSON} JSON array with all 'post' entities from Datastore
+   * @return JSON array with all 'post' entities from Datastore
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query = new Query("post");
-    PreparedQuery results = datastore.prepare(query);
+    PreparedQuery results = datastore.prepare(new Query("post"));
+
+    String maxPostsString = request.getParameter("numPosts");
+    int maxPosts = Integer.parseInt(maxPostsString);
 
     List<Post> posts = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
+      if (posts.size() >= maxPosts) {
+        break;
+      }
+
       String username = (String) entity.getProperty("username");
       String comment = (String) entity.getProperty("comment");
       
