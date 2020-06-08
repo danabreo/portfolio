@@ -394,54 +394,47 @@
     </div>
 
     <div class="container mb-5">
-      <div class="row">
-        <div class="col-md-6">
-          <form action="/data" method="POST">
-          <h6>
-              Please leave a comment using the form below!
-          </h6>
-          <div class="form-group">
-            <label for="username">
-              Username
-            </label>
-            <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username">
-          </div>
-          <div class="form-group">
-            <label for="comment">
-              Comment
-            </label>
-            <input type="text" class="form-control" name="comment" id="comment" placeholder="This website looks amazing...">
-          </div>
-          <div class="form-row justify-content-between">
-            <div class="form-group col-sm-4">
-              <button type="submit" class="btn btn-primary">
-                Submit
-              </button>
-            </div>
-            <div class="input-group mb-3 col-sm-4">
-              <select class="custom-select" id="numPosts" onchange="populatePosts()">
-                <option selected value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-              </select>
-              <div class="input-group-append">
-                <label class="input-group-text"># posts</label>
-              </div>
-            </div>
-          </div>
-          </form>
-          <button onclick="deletePost()" class="btn btn-secondary">
-            Delete
-          </button>
-          <p>
-            (Specify the comment to be deleted using the comment field)
-          </p>
+      <div class="row m-3">
+        <form autocomplete="off" action="/data" method="POST" style="width:100%">
+        <h6>
+            Please leave a comment using the form below!
+        </h6>
+        <div class="form-group">
+          <label for="username">
+            Username
+          </label>
+          <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username">
         </div>
-        <div class="col-md-6">
-          <div class="container">
-            <ul id="posts"></ul>
+        <div class="form-group">
+          <label for="comment">
+            Comment
+          </label>
+          <input type="text" class="form-control" name="comment" id="comment" placeholder="This website looks amazing...">
+        </div>
+        <div class="form-row justify-content-between">
+          <div class="form-group col-sm-6">
+            <button type="submit" class="btn btn-primary">
+              Submit
+            </button>
+            <button type="button" onclick="deletePost()" class="btn btn-secondary">
+              Delete
+            </button>
+          </div>
+          <div class="input-group mb-3 col-sm-3">
+            <select class="custom-select" id="numPosts" onchange="populatePosts()">
+              <option selected value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </select>
+            <div class="input-group-append">
+              <label class="input-group-text"># posts</label>
+            </div>
           </div>
         </div>
+        </form>
+      </div>
+      <div class="row" style="width:100%">
+        <div id="posts" class="card-columns" style="max-height: 60vh; overflow-y: scroll;"></div>
       </div>
     </div>
   </div>
