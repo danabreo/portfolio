@@ -17,6 +17,8 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -40,7 +42,7 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(new Query("post"));
+    PreparedQuery results = datastore.prepare(new Query("post").addSort("score", SortDirection.DESCENDING));
 
     String maxPostsString = request.getParameter("numPosts");
     int maxPosts = Integer.parseInt(maxPostsString);
@@ -51,10 +53,12 @@ public class DataServlet extends HttpServlet {
         break;
       }
 
+      String key = KeyFactory.keyToString(entity.getKey());
       String username = (String) entity.getProperty("username");
       String comment = (String) entity.getProperty("comment");
-      
-      Post post = new Post(username, comment);
+      long score = (Long) entity.getProperty("score");
+
+      Post post = new Post(key, username, comment, score);
       posts.add(post);
     }
 
@@ -66,8 +70,8 @@ public class DataServlet extends HttpServlet {
   }
 
   /**
-   * Extracts the username and comment from the form, combines them as
-   * an entity of kind 'post', and stores the entity in Datastore.
+   * Extracts user input from the form, combines the data as an
+   * entity of kind 'post', and stores the entity in Datastore.
    * Reloads index.html and scrolls to the forum section.
    */
   @Override
@@ -78,6 +82,7 @@ public class DataServlet extends HttpServlet {
     Entity postEntity = new Entity("post");
     postEntity.setProperty("username", username);
     postEntity.setProperty("comment", comment);
+    postEntity.setProperty("score", 1);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(postEntity);
