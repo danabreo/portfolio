@@ -57,7 +57,7 @@
 
 </head>
 
-<body id="homepage" onload="populatePosts()">
+<body id="homepage" onload="loadScripts()">
   <div class="container">
     <div class="row py-5 mb-3" style="height:100%">
       <div class="col-sm-12 my-auto mx-auto" style="padding-right:0px">
@@ -396,9 +396,7 @@
     <div class="container mb-5">
       <div class="row m-3">
         <form autocomplete="off" action="/data" method="POST" style="width:100%">
-        <h6>
-            Please leave a comment using the form below!
-        </h6>
+        <p id="loginPrompt"></p>
         <div class="form-group">
           <label for="username">
             Username
