@@ -1,3 +1,25 @@
+/** Loads posts and login status on page load */
+function loadScripts() {
+    populatePosts();
+    populateLogin();
+}
+
+/**
+  * Populates the login section of the forum section
+  * prompting the user to sign in / sign out.
+  */
+function populateLogin() {
+  fetch("/auth").then(response => response.json()).then((data) => {
+    const authPrompt = document.getElementById("loginPrompt");
+    if (data.authenticated) {
+      authPrompt.innerHTML = "Hello, " + data.userEmail + "! ";
+      authPrompt.innerHTML += "<a href=\"" + data.logoutUrl + "\"> Log Out</a>";
+    } else {
+      authPrompt.innerHTML = "Hello! Please <a href=\"" + data.loginUrl + "\">login</a> to leave a comment.";
+    }
+  });
+}
+
 /**
   * Switches image on splash page when it is clicked.
   */
