@@ -46,9 +46,7 @@ const VoteDirection = {
  */
 function createVoteButton(buttonDirection, buttonSymbol, postKey) {
   let button = document.createElement("button");
-  button.addEventListener("click", function () {
-    votePost(postKey, buttonDirection);
-  });
+  button.addEventListener("click", () => votePost(postKey, buttonDirection));
   button.type = "button";
   button.className = "btn btn-sm btn-primary";
   button.innerHTML = buttonSymbol;
@@ -66,6 +64,9 @@ function createListElement(post) {
 
   let body = document.createElement("div");
   body.className = "card-body";
+
+  let buttonContainer = document.createElement("div");
+  buttonContainer.className = "row px-3 justify-content-between";
 
   let comment = document.createElement("p");
   comment.className = "card-text";
@@ -85,12 +86,25 @@ function createListElement(post) {
 
   let plus = createVoteButton(VoteDirection.UP, " + ", post.key);
 
+  let deleteIcon = document.createElement("img");
+  deleteIcon.src = "/images/trash.svg";
+
+  let deleteButton = document.createElement("button");
+  deleteButton.addEventListener("click", () => deletePost(post.key));
+  deleteButton.type = "button";
+  deleteButton.className = "btn btn-sm btn-outline-secondary";
+  
+  deleteButton.appendChild(deleteIcon);
+
   buttons.appendChild(minus);
   buttons.appendChild(score);
   buttons.appendChild(plus);
 
+  buttonContainer.append(buttons);
+  buttonContainer.append(deleteButton);
+
   body.append(comment);
-  body.append(buttons);
+  body.append(buttonContainer);
 
   card.append(body);
 
@@ -115,12 +129,12 @@ function populatePosts() {
 }
 
 /**
-  * Calls the deletedata servlet, and passes in the text of the comment
+  * Calls the deletedata servlet, and passes in the key of the comment
   * to be deleted. Calls populatePosts to refresh list of comments.
+  * @param {string} postKey Key of the post to be deleted from Datastore.
   */
-function deletePost() {
-  const comment = document.getElementById('comment').value;
-  const url = '/deletedata?comment=' + comment;
+function deletePost(postKey) {
+  const url = '/deletedata?key=' + postKey;
 
   fetch(url, {method: 'POST'}).then(result => populatePosts());
 }

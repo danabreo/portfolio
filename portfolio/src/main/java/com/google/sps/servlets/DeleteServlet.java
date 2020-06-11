@@ -16,26 +16,17 @@ import javax.servlet.http.HttpServletResponse;
 public class DeleteServlet extends HttpServlet {
 
   /**
-   * Extracts text of comment to be deleted from the request URL,
-   * retrieves all entries of kind 'post' with matching comment,
-   * deletes all retrieved entries from Datastore.
+   * Extracts key of post to be deleted from request URL,
+   * retrieves Datastore entry with matching key,
+   * deletes the entry from Datastore.
    * Reloads index.html and scrolls to the forum section.
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String comment = request.getParameter("comment");
+    String key = request.getParameter("key");
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    Query query =
-      new Query("post").setFilter(
-          new Query.FilterPredicate("comment", Query.FilterOperator.EQUAL, comment));
-    PreparedQuery results = datastore.prepare(query);
-    QueryResultIterator<Entity> posts = results.asQueryResultIterator();
-
-    while (posts.hasNext()) {
-      Entity post = posts.next();
-      datastore.delete(post.getKey());  
-    }
+    datastore.delete(KeyFactory.stringToKey(key));
     
     // Redirect back to the forum section.
     response.sendRedirect("/#forum");
