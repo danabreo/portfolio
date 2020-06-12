@@ -14,6 +14,11 @@
 
 package com.google.sps.servlets;
 
+import com.google.appengine.api.blobstore.BlobInfo;
+import com.google.appengine.api.blobstore.BlobInfoFactory;
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -24,11 +29,14 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.sps.data.Post;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -59,8 +67,9 @@ public class DataServlet extends HttpServlet {
       String username = (String) entity.getProperty("username");
       String comment = (String) entity.getProperty("comment");
       long score = (Long) entity.getProperty("score");
+      String blobKey = (String) entity.getProperty("blobKey");
 
-      Post post = new Post(key, username, comment, score);
+      Post post = new Post(key, username, comment, score, blobKey);
       posts.add(post);
     }
 
@@ -87,10 +96,16 @@ public class DataServlet extends HttpServlet {
     String username = request.getParameter("username");
     String comment = request.getParameter("comment");
 
+    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+    ImmutableMap<String, List<BlobKey>> blobs = ImmutableMap.copyOf(blobstoreService.getUploads(request));
+    ImmutableList<BlobKey> blobKeys = ImmutableList.copyOf(blobs.get("image"));
+    String blobKey = blobKeys.get(0).getKeyString();
+
     Entity postEntity = new Entity("post");
     postEntity.setProperty("username", username);
     postEntity.setProperty("comment", comment);
     postEntity.setProperty("score", 1);
+    postEntity.setProperty("blobKey", blobKey);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(postEntity);

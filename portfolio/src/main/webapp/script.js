@@ -1,7 +1,30 @@
 /** Loads posts and login status on page load */
 function loadScripts() {
-    populatePosts();
-    populateLogin();
+  fetchBlobstoreUrl();
+  populatePosts();
+  populateLogin();
+  activateFileInput();
+}
+
+/** Populates file upload element with filename */
+function activateFileInput() {
+  document.querySelector(".custom-file-input").addEventListener('change', function(e){
+    var fileName = document.getElementById("image").files[0].name;
+    var nextSibling = e.target.nextElementSibling;
+    nextSibling.innerText = fileName;
+  });
+}
+
+/** Loads upload image URL and attaches it to the form */
+function fetchBlobstoreUrl() {
+  fetch('/blobstore-upload-url')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const messageForm = document.getElementById('meme-form');
+        messageForm.action = imageUploadUrl;
+      });
 }
 
 /**
@@ -14,8 +37,10 @@ function populateLogin() {
     if (data.authenticated) {
       authPrompt.innerHTML = "Hello, " + data.userEmail + "! ";
       authPrompt.innerHTML += "<a href=\"" + data.logoutUrl + "\"> Log Out</a>";
+      document.getElementById("submit-meme").disabled = false;
     } else {
-      authPrompt.innerHTML = "Hello! Please <a href=\"" + data.loginUrl + "\">login</a> to leave a comment.";
+      authPrompt.innerHTML = "Hello! Please <a href=\"" + data.loginUrl + "\">login</a> to post a meme.";
+      document.getElementById("submit-meme").disabled = true;
     }
   });
 }
@@ -56,14 +81,19 @@ function createVoteButton(buttonDirection, buttonSymbol, postKey) {
 /**
   * Creates and adds a post card containing a caption and 
   * a score as provided by the post parameter.
-  * @param {!{comment: string, username: string, score: number}} 
+  * @param {Post} post JSON representation of the Post object 
+  * @param {string} pic URL of image to be shown in the post
   */
-function createListElement(post) {
+function createListElement(post, pic) {
   let card = document.createElement("div");
   card.className = "card m-1";
 
   let body = document.createElement("div");
   body.className = "card-body";
+
+  let meme = document.createElement("img");
+  meme.style.width = "100%";
+  meme.src = pic;
 
   let buttonContainer = document.createElement("div");
   buttonContainer.className = "row px-3 justify-content-between";
@@ -103,6 +133,7 @@ function createListElement(post) {
   buttonContainer.append(buttons);
   buttonContainer.append(deleteButton);
 
+  body.append(meme);
   body.append(comment);
   body.append(buttonContainer);
 
@@ -123,7 +154,9 @@ function populatePosts() {
     const postHolder = document.getElementById('posts');
     postHolder.innerHTML = "";
     data.forEach(post => {
-      createListElement(post);
+      fetch('/get-image?blobKey=' + post.blobKey).then((pic) => {
+        createListElement(post, pic.url);
+      });
     });
   });
 }
