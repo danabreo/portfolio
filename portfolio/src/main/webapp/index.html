@@ -389,13 +389,13 @@
 
     <div id="forum" class="row px-4 pt-5 pb-2">
       <h2>
-        Forum
+        Memegen 2
       </h2>
     </div>
 
     <div class="container mb-5">
       <div class="row m-3">
-        <form autocomplete="off" action="/data" method="POST" style="width:100%">
+        <form id="meme-form" autocomplete="off" action="" method="POST" style="width:100%" enctype="multipart/form-data">
         <p id="loginPrompt"></p>
         <div class="form-group">
           <label for="username">
@@ -405,13 +405,19 @@
         </div>
         <div class="form-group">
           <label for="comment">
-            Comment
+            Post
           </label>
-          <input type="text" class="form-control" name="comment" id="comment" placeholder="This website looks amazing...">
+          <div class="input-group mb-3">
+            <div class="custom-file">
+              <input type="file" name="image" class="custom-file-input" id="image">
+              <label class="custom-file-label" for="inputGroupFile01">Choose an image...</label>
+            </div>
+          </div>
+          <input type="text" class="form-control" name="comment" id="comment" placeholder="Add a caption... (optional)">
         </div>
         <div class="form-row justify-content-between">
           <div class="form-group col-sm-6">
-            <button type="submit" class="btn btn-primary">
+            <button id="submit-meme" type="submit" class="btn btn-primary">
               Submit
             </button>
           </div>
@@ -429,7 +435,7 @@
         </form>
       </div>
       <div class="row" style="width:100%">
-        <div id="posts" class="card-columns" style="max-height: 60vh; overflow-y: scroll;"></div>
+        <div id="posts" class="card-columns" style="max-height: 90vh; overflow-y: scroll;"></div>
       </div>
     </div>
   </div>
